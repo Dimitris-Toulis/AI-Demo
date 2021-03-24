@@ -89,4 +89,7 @@ export default defineConfig({
 	optimizeDeps: {
 		include: ["@tensorflow-models/qna"],
 	},
+	build:{
+		polyfillDynamicImport: false		
+	}
 });
