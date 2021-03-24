@@ -16,6 +16,7 @@ export default defineConfig({
 		Pages({
 			importMode: "async",
 			extensions: ["vue"],
+			syncIndex: false
 		}),
 		WindiCSS(),
 		minifyHtml(),
