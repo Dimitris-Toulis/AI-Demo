@@ -74,7 +74,7 @@ export default defineConfig({
 						res.setHeader(
 							header.key,
 							header.key == "Content-Security-Policy"
-								? "default-src 'self'; script-src 'self'; object-src 'none'; prefetch-src 'self'; child-src 'none'; worker-src 'self'; frame-ancestors 'none'; form-action 'none'; block-all-mixed-content; base-uri 'none'; style-src 'self' 'unsafe-inline'"
+								? "default-src 'none'; connect-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; object-src 'none'; prefetch-src 'self'; worker-src 'self'; frame-ancestors 'none'; form-action 'none'; block-all-mixed-content; base-uri 'none'; manifest-src 'self'"
 								: header.value
 						)
 					);
