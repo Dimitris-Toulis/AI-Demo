@@ -72,10 +72,9 @@ export default defineConfig({
 					headers.forEach((header) =>
 						res.setHeader(
 							header.key,
-							header.value +
-								(header.key == "Content-Security-Policy"
-									? "style-src 'unsafe-inline';"
-									: "")
+							header.key == "Content-Security-Policy"
+								? "default-src 'self'; script-src 'self'; object-src 'none'; prefetch-src 'self'; child-src 'none'; worker-src 'self'; frame-ancestors 'none'; form-action 'none'; block-all-mixed-content; base-uri 'none'; style-src 'self' 'unsafe-inline'"
+								: header.value
 						)
 					);
 					next();
@@ -89,8 +88,7 @@ export default defineConfig({
 	optimizeDeps: {
 		include: ["@tensorflow-models/qna"],
 	},
-	build:{
-		polyfillDynamicImport: false,
-		sourcemap: true		
+	build: {
+		polyfillDynamicImport: false
 	}
 });
