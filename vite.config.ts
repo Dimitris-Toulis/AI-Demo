@@ -90,6 +90,7 @@ export default defineConfig({
 		include: ["@tensorflow-models/qna"],
 	},
 	build:{
-		polyfillDynamicImport: false		
+		polyfillDynamicImport: false,
+		sourcemap: true		
 	}
 });
