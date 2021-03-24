@@ -16,7 +16,7 @@ export default defineConfig({
 		Pages({
 			importMode: "async",
 			extensions: ["vue"],
-			syncIndex: false
+			syncIndex: false,
 		}),
 		WindiCSS(),
 		minifyHtml(),
@@ -90,6 +90,15 @@ export default defineConfig({
 		include: ["@tensorflow-models/qna"],
 	},
 	build: {
-		polyfillDynamicImport: false
-	}
+		polyfillDynamicImport: false,
+		rollupOptions: {
+			output: {
+				manualChunks: (id) => {
+					if (id.includes("node_modules/@vue")) return "vendor/vue";
+					if (id.includes("node_modules/vue-router")) return "vendor/vue-router";
+					if (id.includes("node_modules/primevue")) return "vendor/primevue";
+				},
+			},
+		},
+	},
 });
