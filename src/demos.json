@@ -1,0 +1,50 @@
+{
+	"/image/bodypix": { 
+		"name": "BodyPix",
+		"status": 0
+	},
+	"/image/face": { 
+		"name": "Face Recognition",
+		"status": 0
+	},
+	"/image/facemesh": { 
+		"name": "Facemesh",
+		"status": 0
+	},
+	"/image/handpose": { 
+		"name": "Handpose",
+		"status": 0
+	},
+	"/image/imageclassifier": { 
+		"name": "Image Classifier",
+		"status": 0
+	},
+	"/image/objectdetector": { 
+		"name": "Object Detector",
+		"status": 0
+	},
+	"/image/posenet": { 
+		"name": "PoseNet",
+		"status": 0
+	},
+	"/image/unet": { 
+		"name": "UNET",
+		"status": 0
+	},
+	"/sound/pitchdetection": { 
+		"name": "Pitch Detection",
+		"status": 0
+	},
+	"/sound/soundclassifier": { 
+		"name": "Sound Classifier",
+		"status": 0
+	},
+	"/text/qna": { 
+		"name": "QNA",
+		"status": 0
+	},
+	"/text/toxicityclassifier": { 
+		"name": "Toxicity Classifier",
+		"status": -1
+	}
+}
