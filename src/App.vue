@@ -1,12 +1,14 @@
 <template>
-	<h1 v-if="page.name != 'index'" class="m-4 text-center prose-xl md:prose-2xl">{{ Texts[Demos[page.path]?.name] }} ({{ Demos[page.path]?.name }})</h1>
+	<h1 v-if="page.name != 'index'" class="m-4 text-center prose-xl md:prose-2xl">
+		{{ Texts[Demos[page.path]?.name] }} ({{ Demos[page.path]?.name }})
+	</h1>
 	<div v-if="page.name != 'index'" class="border flex h-full border-blue-600 border-5 flex-1 m-4 mt-0 p-4">
 		<Suspense>
 			<template #default>
-				<router-view/>
+				<router-view />
 			</template>
 			<template #fallback>
-				<ProgressSpinner animationDuration="infinite" class="m-auto"/>
+				<ProgressSpinner animationDuration="infinite" class="m-auto" />
 			</template>
 		</Suspense>
 	</div>
@@ -23,29 +25,27 @@ import { RouteLocationNormalizedLoaded, useRoute } from "vue-router";
 export default defineComponent({
 	name: "App",
 	components: {
-		ProgressSpinner
+		ProgressSpinner,
 	},
-	setup: function() {
-		onErrorCaptured(function(err){
+	setup: function () {
+		onErrorCaptured(function (err) {
 			alert("Failed initializing!");
-		})
+		});
 		return {
 			Demos,
 			Texts: Texts.Home,
 			page: useRoute(),
-			error: undefined
 		} as {
 			Demos: {
 				[key: string]: {
 					name: string;
 					status: number;
 				};
-			},
+			};
 			Texts: {
 				[key: string]: string;
-			},
-			page: RouteLocationNormalizedLoaded,
-			error?: unknown
+			};
+			page: RouteLocationNormalizedLoaded;
 		};
 	},
 });
