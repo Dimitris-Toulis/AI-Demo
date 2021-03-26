@@ -8,8 +8,6 @@ import "primevue/resources/primevue.min.css";
 import "primevue/resources/themes/bootstrap4-light-blue/theme.css";
 import Button from "primevue/button";
 
-window.console.log = function(){};
-
 createApp(App)
 .use(createRouter({
 	history: createWebHistory(),
