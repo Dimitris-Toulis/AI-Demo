@@ -87,7 +87,7 @@ export default defineConfig({
 		stringify: true,
 	},
 	optimizeDeps: {
-		include: ["@tensorflow-models/qna"],
+		include: ["@tensorflow-models/qna","@tensorflow-models/posenet"],
 	},
 	build: {
 		polyfillDynamicImport: false,
