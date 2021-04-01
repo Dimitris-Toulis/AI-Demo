@@ -1,43 +1,42 @@
 <template>
-	<CommonImage :ai="ai" :draw="draw" :startup="startup"/>
+	<CommonImage :draw="draw" :WorkerConstructor="WorkerConstructor" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import "@tensorflow/tfjs-backend-webgl";
-import "@tensorflow/tfjs-backend-cpu";
-import * as posenet from "@tensorflow-models/posenet";
+import AIWorker from "./worker?worker";
 import CommonImage from "../../../components/CommonImage.vue";
 
+type Keypoint = {
+	score: number;
+	position: {
+		x: number;
+		y: number;
+	};
+	part: string;
+};
 export default defineComponent({
 	name: "PoseNet",
 	components: {
-		CommonImage
+		CommonImage,
 	},
 	setup: async function () {
-		const ai = async(model: posenet.PoseNet, video : HTMLVideoElement) : Promise<posenet.Keypoint[][]> =>{
-			let results = await model.estimateSinglePose(video);
-			return posenet.getAdjacentKeyPoints(results.keypoints,0.5);
-		}
-		const draw = async(keypoints : posenet.Keypoint[][], ctx: CanvasRenderingContext2D) => {
+		const draw = async (keypoints: Keypoint[][], ctx: CanvasRenderingContext2D) => {
 			ctx.lineWidth = 5;
 			ctx.strokeStyle = `rgba(255,0,0)`;
-			keypoints.forEach((keypoint)=>{
-				ctx.globalAlpha = parseFloat(((keypoint[0].score + keypoint[1].score)/2).toFixed(4));
-				ctx.beginPath();
-				ctx.moveTo(keypoint[0].position.x,keypoint[0].position.y);
-				ctx.lineTo(keypoint[1].position.x,keypoint[1].position.y);
-				ctx.stroke();
-				ctx.closePath();
+			ctx.beginPath();
+			keypoints.forEach((keypoint) => {
+				ctx.globalAlpha = parseFloat(
+					((keypoint[0].score + keypoint[1].score) / 2).toFixed(4)
+				);
+				ctx.moveTo(Math.floor(keypoint[0].position.x), Math.floor(keypoint[0].position.y));
+				ctx.lineTo(Math.floor(keypoint[1].position.x), Math.floor(keypoint[1].position.y));
 			});
+			ctx.stroke();
 		};
-		const startup = async(video : HTMLVideoElement)=>{
-			return await posenet.load();
-		}
 		return {
-			ai,
 			draw,
-			startup
+			WorkerConstructor: AIWorker,
 		};
 	},
 });

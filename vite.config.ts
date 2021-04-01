@@ -87,7 +87,7 @@ export default defineConfig({
 		stringify: true,
 	},
 	optimizeDeps: {
-		include: ["@tensorflow-models/qna","@tensorflow-models/posenet"],
+		include: ["@tensorflow-models/qna", "@tensorflow-models/posenet"],
 	},
 	build: {
 		polyfillDynamicImport: false,
@@ -99,6 +99,11 @@ export default defineConfig({
 					if (id.includes("node_modules/primevue")) return "vendor/primevue";
 				},
 			},
+		},
+	},
+	resolve: {
+		alias: {
+			"@": "./",
 		},
 	},
 });
