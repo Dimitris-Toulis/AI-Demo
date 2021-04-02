@@ -74,10 +74,11 @@ export default defineConfig({
 						res.setHeader(
 							header.key,
 							header.key == "Content-Security-Policy"
-								? "default-src 'none'; connect-src 'self' https://storage.googleapis.com https://tfhub.dev/tensorflow/tfjs-model/; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; object-src 'none'; prefetch-src 'self'; worker-src 'self'; frame-ancestors 'none'; form-action 'none'; block-all-mixed-content; base-uri 'none'; manifest-src 'self'"
+								? "default-src 'none'; connect-src 'self' https://storage.googleapis.com https://tfhub.dev/tensorflow/tfjs-model/; script-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self'; object-src 'none'; prefetch-src 'self'; frame-ancestors 'none'; form-action 'none'; block-all-mixed-content; base-uri 'none'; manifest-src 'self'"
 								: header.value
 						)
 					);
+					_.url;
 					next();
 				});
 			},
@@ -87,23 +88,42 @@ export default defineConfig({
 		stringify: true,
 	},
 	optimizeDeps: {
-		include: ["@tensorflow-models/qna", "@tensorflow-models/posenet"],
+		include: ["@tensorflow-models/qna", "@tensorflow-models/posenet", "@tensorflow/tfjs-core"],
 	},
 	build: {
 		polyfillDynamicImport: false,
 		rollupOptions: {
 			output: {
 				manualChunks: (id) => {
+					console.log(id);
 					if (id.includes("node_modules/@vue")) return "vendor/vue";
 					if (id.includes("node_modules/vue-router")) return "vendor/vue-router";
 					if (id.includes("node_modules/primevue")) return "vendor/primevue";
+					if (id.includes("node_modules/@tensorflow-models/"))
+						return `vendor/models/${
+							id.split("node_modules/@tensorflow-models/")[1].split("/")[0]
+						}`;
+					if (id.includes("node_modules/@tensorflow"))
+						return `vendor/tfjs/${id
+							.split("node_modules/@tensorflow/")[1]
+							.split("/")[0]
+							.replace("tfjs-", "")}`;
+					if (id.includes("node_modules/comlink")) return "vendor/comlink";
 				},
+			},
+		},
+		terserOptions: {
+			format: {
+				comments: false,
+			},
+			compress: {
+				unsafe: true,
 			},
 		},
 	},
 	resolve: {
 		alias: {
-			"@": "./",
+			"~": "./",
 		},
 	},
 });

@@ -1,25 +1,31 @@
-import "@tensorflow/tfjs-backend-webgl";
-//import * as tf from "@tensorflow/tfjs";
-import "@tensorflow/tfjs-backend-cpu";
-//import { setWasmPaths } from "@tensorflow/tfjs-backend-wasm";
-//import WasmDefault from "@/node_modules/@tensorflow/tfjs-backend-wasm/dist/tfjs-backend-wasm?url";
-//import WasmSimd from "@/node_modules/@tensorflow/tfjs-backend-wasm/dist/tfjs-backend-wasm-simd?url";
-//import WasmSimdThreads from "@/node_modules/@tensorflow/tfjs-backend-wasm/dist/tfjs-backend-wasm-threaded-simd?url";
-import * as posenet from "@tensorflow-models/posenet";
-import * as comlink from "comlink";
-/*setWasmPaths({
-	"tfjs-backend-wasm.wasm": WasmDefault,
-	"tfjs-backend-wasm-simd.wasm": WasmSimd,
-	"tfjs-backend-wasm-threaded-simd.wasm": WasmSimdThreads,
-});*/
-//await tf.setBackend("wasm");
-let model: posenet.PoseNet;
-comlink.expose({
+import { setBackend, ready, enableProdMode } from "@tensorflow/tfjs-core";
+import WasmDefault from "~/node_modules/@tensorflow/tfjs-backend-wasm/wasm-out/tfjs-backend-wasm.wasm?url";
+import WasmSimd from "~/node_modules/@tensorflow/tfjs-backend-wasm/wasm-out/tfjs-backend-wasm-simd.wasm?url";
+import WasmSimdThreads from "~/node_modules/@tensorflow/tfjs-backend-wasm/wasm-out/tfjs-backend-wasm-threaded-simd.wasm?url";
+import { PoseNet, load, getAdjacentKeyPoints } from "@tensorflow-models/posenet";
+import { expose } from "comlink";
+import { setWasmPaths } from "@tensorflow/tfjs-backend-wasm";
+if (import.meta.env.PROD) enableProdMode();
+let model: PoseNet;
+expose({
 	async setup() {
-		model = await posenet.load();
+		setWasmPaths({
+			"tfjs-backend-wasm.wasm": import.meta.env.DEV
+				? WasmDefault.replace("/@fs", "")
+				: WasmDefault,
+			"tfjs-backend-wasm-simd.wasm": import.meta.env.DEV
+				? WasmSimd.replace("/@fs", "")
+				: WasmSimd,
+			"tfjs-backend-wasm-threaded-simd.wasm": import.meta.env.DEV
+				? WasmSimdThreads.replace("/@fs", "")
+				: WasmSimdThreads,
+		});
+		await setBackend("wasm");
+		await ready();
+		model = await load();
 	},
 	async predict(image: ImageData) {
 		let results = await model.estimateSinglePose(image);
-		return posenet.getAdjacentKeyPoints(results.keypoints, 0.5);
+		return getAdjacentKeyPoints(results.keypoints, 0.5);
 	},
 });
