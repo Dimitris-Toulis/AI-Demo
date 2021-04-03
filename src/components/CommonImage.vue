@@ -33,7 +33,13 @@ export default defineComponent({
 		let worker = new props.WorkerConstructor();
 		let WorkerProxy: comlink.Remote<{
 			setup: () => Promise<void>;
-			predict: (image: ImageData) => Promise<any>;
+			predict: (
+				image: ArrayBufferLike,
+				data: {
+					width: number;
+					height: number;
+				}
+			) => Promise<any>;
 		}> = comlink.wrap(worker);
 		let requestVideoFrameCallback: (callback: () => any) => any;
 		let nextFrameData: any;
@@ -52,6 +58,7 @@ export default defineComponent({
 			});
 		});
 		onBeforeUnmount(() => {
+			WorkerProxy[comlink.releaseProxy]();
 			worker.terminate();
 			(video.value!.srcObject! as MediaStream).getTracks().forEach((track) => track.stop());
 		});
@@ -66,9 +73,16 @@ export default defineComponent({
 						videoCtx?.canvas.width,
 						videoCtx?.canvas.height
 					);
-					WorkerProxy.predict(
-						videoCtx!.getImageData(0, 0, ctx!.canvas.width, ctx!.canvas.height)
-					).then((data: any) => {
+					let imageData = videoCtx!.getImageData(
+						0,
+						0,
+						ctx!.canvas.width,
+						ctx!.canvas.height
+					);
+					WorkerProxy.predict(comlink.transfer(imageData.data, [imageData.data.buffer]), {
+						width: imageData.width,
+						height: imageData.height,
+					}).then((data: any) => {
 						nextFrameData = data;
 					});
 				}, 0);

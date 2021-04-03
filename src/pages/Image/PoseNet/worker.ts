@@ -24,8 +24,16 @@ expose({
 		await ready();
 		model = await load();
 	},
-	async predict(image: ImageData) {
-		let results = await model.estimateSinglePose(image);
+	async predict(
+		image: ArrayBufferLike,
+		data: {
+			width: number;
+			height: number;
+		}
+	) {
+		let results = await model.estimateSinglePose(
+			new ImageData(new Uint8ClampedArray(image), data.width, data.height)
+		);
 		return getAdjacentKeyPoints(results.keypoints, 0.5);
 	},
 });
