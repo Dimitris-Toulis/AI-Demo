@@ -5,6 +5,7 @@ import WindiCSS from "vite-plugin-windicss";
 import { minifyHtml } from "vite-plugin-html";
 import { VitePWA } from "vite-plugin-pwa";
 import fs from "fs";
+import terser from "terser";
 
 const headers: { key: string; value: string }[] = JSON.parse(
 	fs.readFileSync("vercel.json", "utf-8")
@@ -81,6 +82,18 @@ export default defineConfig({
 					_.url;
 					next();
 				});
+			},
+		},
+		{
+			name: "minify-registerSW.js",
+			enforce: "post",
+			apply: "build",
+			generateBundle(_, bundle) {
+				const file = bundle["registerSW.js"];
+				if (file.type == "asset") {
+					if (typeof file.source != "string") return;
+					file.source = terser.minify(file.source).code;
+				}
 			},
 		},
 	],
