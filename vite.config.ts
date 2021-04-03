@@ -98,7 +98,6 @@ export default defineConfig({
 					console.log(id);
 					if (id.includes("node_modules/@vue")) return "vendor/vue";
 					if (id.includes("node_modules/vue-router")) return "vendor/vue-router";
-					if (id.includes("node_modules/primevue")) return "vendor/primevue";
 					if (id.includes("node_modules/@tensorflow-models/"))
 						return `vendor/models/${
 							id.split("node_modules/@tensorflow-models/")[1].split("/")[0]

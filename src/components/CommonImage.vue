@@ -55,6 +55,7 @@ export default defineComponent({
 			worker.terminate();
 			(video.value!.srcObject! as MediaStream).getTracks().forEach((track) => track.stop());
 		});
+		await WorkerProxy.setup();
 		const main = async () => {
 			if (!nextFrameData) {
 				setTimeout(async () => {
@@ -98,7 +99,6 @@ export default defineComponent({
 				? video.value?.requestVideoFrameCallback.bind(video.value)
 				: requestAnimationFrame;
 			await video.value?.play();
-			await WorkerProxy.setup();
 			requestAnimationFrame(main);
 		};
 		return {
