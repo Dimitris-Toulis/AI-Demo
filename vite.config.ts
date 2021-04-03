@@ -88,11 +88,11 @@ export default defineConfig({
 			name: "minify-registerSW.js",
 			enforce: "post",
 			apply: "build",
-			generateBundle(_, bundle) {
+			async generateBundle(_, bundle) {
 				const file = bundle["registerSW.js"];
 				if (file.type == "asset") {
 					if (typeof file.source != "string") return;
-					file.source = terser.minify(file.source).code;
+					file.source = (await terser.minify(file.source)).code;
 				}
 			},
 		},
