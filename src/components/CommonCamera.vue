@@ -11,7 +11,7 @@ import { defineComponent, onBeforeUnmount, onMounted, PropType, ref, Ref } from 
 import * as comlink from "comlink";
 
 export default defineComponent({
-	name: "CommonImage",
+	name: "CommonCamera",
 	props: {
 		WorkerConstructor: {
 			type: (Function as unknown) as PropType<new () => Worker>,

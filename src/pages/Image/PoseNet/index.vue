@@ -1,11 +1,11 @@
 <template>
-	<CommonImage :draw="draw" :WorkerConstructor="WorkerConstructor" />
+	<CommonCamera :draw="draw" :WorkerConstructor="WorkerConstructor" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import AIWorker from "./worker?worker";
-import CommonImage from "../../../components/CommonImage.vue";
+import CommonCamera from "../../../components/CommonCamera.vue";
 
 type Keypoint = {
 	score: number;
@@ -18,7 +18,7 @@ type Keypoint = {
 export default defineComponent({
 	name: "PoseNet",
 	components: {
-		CommonImage,
+		CommonCamera,
 	},
 	setup: async function () {
 		const draw = async (keypoints: Keypoint[][], ctx: CanvasRenderingContext2D) => {
