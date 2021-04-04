@@ -126,6 +126,7 @@ export default defineConfig({
 			compress: {
 				typeofs: false,
 				unsafe: true,
+				passes: 3,
 			},
 		},
 	},
