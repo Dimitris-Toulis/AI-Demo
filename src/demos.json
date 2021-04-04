@@ -1,49 +1,49 @@
 {
-	"/image/bodypix": { 
+	"/image/bodypix": {
 		"name": "BodyPix",
 		"status": 0
 	},
-	"/image/face": { 
+	"/image/face": {
 		"name": "Face Recognition",
 		"status": 0
 	},
-	"/image/facemesh": { 
+	"/image/facemesh": {
 		"name": "Facemesh",
-		"status": 0
+		"status": 1
 	},
-	"/image/handpose": { 
+	"/image/handpose": {
 		"name": "Handpose",
 		"status": 0
 	},
-	"/image/imageclassifier": { 
+	"/image/imageclassifier": {
 		"name": "Image Classifier",
 		"status": 0
 	},
-	"/image/objectdetector": { 
+	"/image/objectdetector": {
 		"name": "Object Detector",
 		"status": 0
 	},
-	"/image/posenet": { 
+	"/image/posenet": {
 		"name": "PoseNet",
 		"status": 1
 	},
-	"/image/unet": { 
+	"/image/unet": {
 		"name": "UNET",
 		"status": 0
 	},
-	"/sound/pitchdetection": { 
+	"/sound/pitchdetection": {
 		"name": "Pitch Detection",
 		"status": 0
 	},
-	"/sound/soundclassifier": { 
+	"/sound/soundclassifier": {
 		"name": "Sound Classifier",
 		"status": 0
 	},
-	"/text/qna": { 
+	"/text/qna": {
 		"name": "QNA",
 		"status": 0
 	},
-	"/text/toxicityclassifier": { 
+	"/text/toxicityclassifier": {
 		"name": "Toxicity Classifier",
 		"status": -1
 	}
