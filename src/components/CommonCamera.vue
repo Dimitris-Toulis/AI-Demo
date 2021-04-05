@@ -99,14 +99,15 @@ export default defineComponent({
 				.getSettings().height!;
 			const width = (video.value!.srcObject! as MediaStream).getVideoTracks()[0].getSettings()
 				.width!;
+
 			ctx!.canvas.width = width;
 			ctx!.canvas.height = height;
-			ctx!.canvas.style.width = width.toString() + "px";
-			videoCtx!.canvas.style.height = height.toString() + "px";
+			ctx!.canvas.style.height = "100%";
+
 			videoCtx!.canvas.width = width;
 			videoCtx!.canvas.height = height;
-			videoCtx!.canvas.style.width = width.toString() + "px";
-			videoCtx!.canvas.style.height = height.toString() + "px";
+			videoCtx!.canvas.style.height = "100%";
+
 			video.value!.width = width;
 			video.value!.height = height;
 			requestVideoFrameCallback = video.value?.requestVideoFrameCallback
