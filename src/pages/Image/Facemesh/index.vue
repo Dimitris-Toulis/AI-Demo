@@ -33,7 +33,6 @@ export default defineComponent({
 			ctx.lineWidth = 5;
 			ctx.fillStyle = `rgb(50,200,255)`;
 			faces.forEach((face) => {
-				console.log(face);
 				if (face.faceInViewConfidence <= 0.5) return;
 				face.scaledMesh.forEach((point) => {
 					ctx.beginPath();
