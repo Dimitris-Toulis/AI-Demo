@@ -1,15 +1,16 @@
 <template>
-	<CommonCamera :draw="draw" :WorkerConstructor="WorkerConstructor" />
+	<CommonCamera :draw="draw" :ai="ai" :startup="startup" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import AIWorker from "./worker?worker";
 import CommonCamera from "../../../components/CommonCamera.vue";
+import CommonAI from "../../../CommonAI";
 import {
 	Coord2D,
 	Coords3D,
 } from "@tensorflow-models/face-landmarks-detection/dist/mediapipe-facemesh/util";
+import { load, FaceLandmarksDetector } from "@tensorflow-models/face-landmarks-detection";
 
 interface AnnotatedPredictionValues {
 	kind: "MediaPipePredictionValues";
@@ -41,9 +42,16 @@ export default defineComponent({
 				});
 			});
 		};
+		const startup = CommonAI(load);
+		const ai = (model: FaceLandmarksDetector, video: HTMLVideoElement) => {
+			return model.estimateFaces({
+				input: video,
+			});
+		};
 		return {
+			startup,
+			ai,
 			draw,
-			WorkerConstructor: AIWorker,
 		};
 	},
 });

@@ -1,20 +1,13 @@
 <template>
-	<CommonCamera :draw="draw" :WorkerConstructor="WorkerConstructor" />
+	<CommonCamera :draw="draw" :ai="ai" :startup="startup" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import AIWorker from "./worker?worker";
 import CommonCamera from "../../../components/CommonCamera.vue";
+import CommonAI from "../../../CommonAI";
+import { load, Keypoint, PoseNet, getAdjacentKeyPoints } from "@tensorflow-models/posenet";
 
-type Keypoint = {
-	score: number;
-	position: {
-		x: number;
-		y: number;
-	};
-	part: string;
-};
 export default defineComponent({
 	name: "PoseNet",
 	components: {
@@ -34,9 +27,14 @@ export default defineComponent({
 			});
 			ctx.stroke();
 		};
+		const startup = CommonAI(load);
+		const ai = async (model: PoseNet, video: HTMLVideoElement) => {
+			return getAdjacentKeyPoints((await model.estimateSinglePose(video)).keypoints, 0.5);
+		};
 		return {
+			startup,
+			ai,
 			draw,
-			WorkerConstructor: AIWorker,
 		};
 	},
 });

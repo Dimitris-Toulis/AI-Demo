@@ -1,20 +1,20 @@
 <template>
 	<video ref="video" class="hidden" @loadeddata="videoLoaded()"></video>
-	<div class="relative">
-		<canvas class="top-0 right-0 bottom-0 left-0 z-10 absolute" ref="canvas"></canvas>
-		<canvas class="top-0 right-0 bottom-0 left-0 absolute" ref="videoCanvas"></canvas>
-	</div>
+	<canvas class="h-full flex-1" ref="canvas"></canvas>
 </template>
 
 <script lang="ts">
 import { defineComponent, onBeforeUnmount, onMounted, PropType, ref, Ref } from "vue";
-import * as comlink from "comlink";
 
 export default defineComponent({
 	name: "CommonCamera",
 	props: {
-		WorkerConstructor: {
-			type: (Function as unknown) as PropType<new () => Worker>,
+		startup: {
+			type: Function as PropType<() => Promise<any>>,
+			required: true,
+		},
+		ai: {
+			type: Function as PropType<(model: any, video: HTMLVideoElement) => Promise<any>>,
 			required: true,
 		},
 		draw: {
@@ -26,23 +26,10 @@ export default defineComponent({
 	},
 	setup: async function (props) {
 		const canvas: Ref<null | HTMLCanvasElement> = ref(null);
-		const videoCanvas: Ref<null | HTMLCanvasElement> = ref(null);
 		const video: Ref<null | HTMLVideoElement> = ref(null);
 		let ctx: CanvasRenderingContext2D | null = null;
-		let videoCtx: CanvasRenderingContext2D | null = null;
-		let worker = new props.WorkerConstructor();
-		let WorkerProxy: comlink.Remote<{
-			setup: () => Promise<void>;
-			predict: (
-				image: ArrayBufferLike,
-				data: {
-					width: number;
-					height: number;
-				}
-			) => Promise<any>;
-		}> = comlink.wrap(worker);
 		let requestVideoFrameCallback: (callback: () => any) => any;
-		let nextFrameData: any;
+		let model: any;
 		onMounted(async () => {
 			(video as Ref<HTMLVideoElement>).value.srcObject = await window.navigator.mediaDevices.getUserMedia(
 				{
@@ -50,47 +37,17 @@ export default defineComponent({
 				}
 			);
 			ctx = canvas.value!.getContext("2d", {
-				alpha: true,
-			});
-			videoCtx = videoCanvas.value!.getContext("2d", {
 				alpha: false,
 				desynchronized: true,
 			});
 		});
 		onBeforeUnmount(() => {
-			WorkerProxy[comlink.releaseProxy]();
-			worker.terminate();
 			(video.value!.srcObject! as MediaStream).getTracks().forEach((track) => track.stop());
 		});
-		await WorkerProxy.setup();
 		const main = async () => {
-			if (!nextFrameData) {
-				setTimeout(async () => {
-					videoCtx?.drawImage(
-						video.value!,
-						0,
-						0,
-						videoCtx?.canvas.width,
-						videoCtx?.canvas.height
-					);
-					let imageData = videoCtx!.getImageData(
-						0,
-						0,
-						ctx!.canvas.width,
-						ctx!.canvas.height
-					);
-					WorkerProxy.predict(comlink.transfer(imageData.data, [imageData.data.buffer]), {
-						width: imageData.width,
-						height: imageData.height,
-					}).then((data: any) => {
-						nextFrameData = data;
-					});
-				}, 0);
-			} else {
-				ctx?.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-				props.draw(nextFrameData!, ctx!);
-				nextFrameData = undefined;
-			}
+			ctx?.drawImage(video.value!, 0, 0, ctx.canvas.width, ctx.canvas.height);
+			let results = await props.ai(model, video.value!);
+			props.draw(results, ctx!);
 			requestVideoFrameCallback(main);
 		};
 		const videoLoaded = async () => {
@@ -102,11 +59,6 @@ export default defineComponent({
 
 			ctx!.canvas.width = width;
 			ctx!.canvas.height = height;
-			ctx!.canvas.style.height = "100%";
-
-			videoCtx!.canvas.width = width;
-			videoCtx!.canvas.height = height;
-			videoCtx!.canvas.style.height = "100%";
 
 			video.value!.width = width;
 			video.value!.height = height;
@@ -114,11 +66,11 @@ export default defineComponent({
 				? video.value?.requestVideoFrameCallback.bind(video.value)
 				: requestAnimationFrame;
 			await video.value?.play();
+			model = await props.startup();
 			requestAnimationFrame(main);
 		};
 		return {
 			canvas,
-			videoCanvas,
 			video,
 			videoLoaded,
 		};
