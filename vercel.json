@@ -64,6 +64,15 @@
 					"value": "public, max-age=60, stale-while-revalidate=86400"
 				}
 			]
+		},
+		{
+			"source": "/(.*).(avif|webp|png)",
+			"headers": [
+				{
+					"key": "Cache-Control",
+					"value": "public, max-age=60, stale-while-revalidate=600"
+				}
+			]
 		}
 	]
 }
