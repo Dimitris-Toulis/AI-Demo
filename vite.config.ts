@@ -20,7 +20,6 @@ export default defineConfig({
 			syncIndex: false,
 		}),
 		WindiCSS(),
-		minifyHtml(),
 		VitePWA({
 			manifest: {
 				name: "AI Demo",
@@ -96,6 +95,17 @@ export default defineConfig({
 				}
 			},
 		},
+		{
+			name: "preload-tfjs",
+			apply: "build",
+			transformIndexHtml(html,bundle) {
+				const tags = Object.keys(bundle.bundle).filter((v)=>v.includes("vendor/tfjs")||v.includes("tfjs-backend-wasm")).map((key=>{
+					return `<link rel=modulepreload href=${key}>`;
+				}))
+				return html.replace("</head>",tags.reduce((acc,val)=>acc+val)+"</head>");
+			}
+		},
+		minifyHtml(),
 	],
 	json: {
 		stringify: true,
