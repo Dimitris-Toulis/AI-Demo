@@ -100,8 +100,8 @@ export default defineConfig({
 			apply: "build",
 			transformIndexHtml(html,bundle) {
 				const tags = Object.keys(bundle.bundle).filter((v)=>v.includes("vendor/tfjs")||v.includes("tfjs-backend-wasm")).map((key=>{
-					return `<link rel=modulepreload href=${key}>`;
-				}))
+						return `<link rel=prefetch href=${key}>`;
+					}))
 				return html.replace("</head>",tags.reduce((acc,val)=>acc+val)+"</head>");
 			}
 		},
