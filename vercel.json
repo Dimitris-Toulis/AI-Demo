@@ -70,7 +70,7 @@
 			"headers": [
 				{
 					"key": "Cache-Control",
-					"value": "public, max-age=60, stale-while-revalidate=600"
+					"value": "public, max-age=1800, stale-while-revalidate=3600"
 				}
 			]
 		},
