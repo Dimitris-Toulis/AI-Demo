@@ -26,6 +26,6 @@
 		"vite-plugin-html": "^2.0.3",
 		"vite-plugin-pages": "^0.9.2",
 		"vite-plugin-pwa": "^0.6.5",
-		"vite-plugin-windicss": "^0.12.2"
+		"vite-plugin-windicss": "^0.12.5"
 	}
 }
