@@ -46,6 +46,7 @@ export default defineComponent({
 		});
 		const main = async () => {
 			let results = await props.ai(model, video.value!);
+			console.log(results);
 			ctx?.drawImage(video.value!, 0, 0, ctx.canvas.width, ctx.canvas.height);
 			props.draw(results, ctx!);
 			requestVideoFrameCallback(main);

@@ -5,10 +5,6 @@
 	},
 	"/image/face": {
 		"name": "Face Recognition",
-		"status": 0
-	},
-	"/image/facemesh": {
-		"name": "Facemesh",
 		"status": 1
 	},
 	"/image/handpose": {
