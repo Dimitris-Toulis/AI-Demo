@@ -45,8 +45,8 @@ export default defineComponent({
 			(video.value!.srcObject! as MediaStream).getTracks().forEach((track) => track.stop());
 		});
 		const main = async () => {
-			ctx?.drawImage(video.value!, 0, 0, ctx.canvas.width, ctx.canvas.height);
 			let results = await props.ai(model, video.value!);
+			ctx?.drawImage(video.value!, 0, 0, ctx.canvas.width, ctx.canvas.height);
 			props.draw(results, ctx!);
 			requestVideoFrameCallback(main);
 		};
