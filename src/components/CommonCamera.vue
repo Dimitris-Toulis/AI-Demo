@@ -43,8 +43,10 @@ export default defineComponent({
 		});
 		onBeforeUnmount(() => {
 			(video.value!.srcObject! as MediaStream).getTracks().forEach((track) => track.stop());
+			model = null;
 		});
 		const main = async () => {
+			if (model == null) return;
 			let results = await props.ai(model, video.value!);
 			console.log(results);
 			ctx?.drawImage(video.value!, 0, 0, ctx.canvas.width, ctx.canvas.height);
