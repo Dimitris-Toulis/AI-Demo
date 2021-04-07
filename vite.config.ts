@@ -21,6 +21,7 @@ export default defineConfig({
 		}),
 		WindiCSS(),
 		VitePWA({
+			registerType: "autoUpdate",
 			manifest: {
 				name: "AI Demo",
 				short_name: "AI Demo",
@@ -74,7 +75,8 @@ export default defineConfig({
 						res.setHeader(
 							header.key,
 							header.key == "Content-Security-Policy"
-								? header.value.split("style-src")[0] + "style-src 'self' 'unsafe-inline'"
+								? header.value.split("style-src")[0] +
+										"style-src 'self' 'unsafe-inline'"
 								: header.value
 						)
 					);
@@ -89,7 +91,7 @@ export default defineConfig({
 			apply: "build",
 			async generateBundle(_, bundle) {
 				const file = bundle["registerSW.js"];
-				if (file.type == "asset") {
+				if (file?.type == "asset") {
 					if (typeof file.source != "string") return;
 					file.source = (await terser.minify(file.source)).code;
 				}
@@ -98,12 +100,14 @@ export default defineConfig({
 		{
 			name: "preload-tfjs",
 			apply: "build",
-			transformIndexHtml(html,bundle) {
-				const tags = Object.keys(bundle.bundle).filter((v)=>v.includes("vendor/tfjs")||v.includes("tfjs-backend-wasm")).map((key=>{
+			transformIndexHtml(html, bundle) {
+				const tags = Object.keys(bundle.bundle)
+					.filter((v) => v.includes("vendor/tfjs") || v.includes("tfjs-backend-wasm"))
+					.map((key) => {
 						return `<link rel=prefetch href=${key}>`;
-					}))
-				return html.replace("</head>",tags.reduce((acc,val)=>acc+val)+"</head>");
-			}
+					});
+				return html.replace("</head>", tags.reduce((acc, val) => acc + val) + "</head>");
+			},
 		},
 		minifyHtml(),
 	],
