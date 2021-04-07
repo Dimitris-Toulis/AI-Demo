@@ -2,7 +2,7 @@
 	<h1 v-if="(page.name || 'index') != 'index'" class="m-4 text-center prose-xl md:prose-2xl">
 		{{ Texts[Demos[page.path]?.name] }} ({{ Demos[page.path]?.name }})
 	</h1>
-	<div
+	<main
 		v-if="(page.name || 'index') != 'index'"
 		class="border flex h-full border-blue-600 border-5 flex-1 m-4 mt-0 p-4"
 	>
@@ -14,7 +14,7 @@
 				<div class="spinner" />
 			</template>
 		</Suspense>
-	</div>
+	</main>
 	<router-view v-else></router-view>
 </template>
 
