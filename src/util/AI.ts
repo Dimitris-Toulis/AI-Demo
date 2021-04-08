@@ -4,7 +4,7 @@ import WasmSimd from "~/node_modules/@tensorflow/tfjs-backend-wasm/wasm-out/tfjs
 import WasmSimdThreads from "~/node_modules/@tensorflow/tfjs-backend-wasm/wasm-out/tfjs-backend-wasm-threaded-simd.wasm?url";
 import { setWasmPaths } from "@tensorflow/tfjs-backend-wasm";
 if (import.meta.env.PROD) enableProdMode();
-function setup<T>(load: (config?: any) => Promise<T>, config?: any): () => Promise<T> {
+function setup<T, U>(load: (config?: U) => Promise<T>, config?: U): () => Promise<T> {
 	return async () => {
 		setWasmPaths({
 			"tfjs-backend-wasm.wasm": import.meta.env.DEV
