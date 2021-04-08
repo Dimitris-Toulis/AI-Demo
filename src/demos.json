@@ -27,12 +27,8 @@
 		"name": "UNET",
 		"status": 0
 	},
-	"/sound/pitchdetection": {
-		"name": "Pitch Detection",
-		"status": 0
-	},
-	"/sound/soundclassifier": {
-		"name": "Sound Classifier",
+	"/sound/speechcommands": {
+		"name": "Speech Commands",
 		"status": 0
 	},
 	"/text/qna": {
