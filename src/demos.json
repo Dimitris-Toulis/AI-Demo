@@ -9,7 +9,7 @@
 	},
 	"/image/handpose": {
 		"name": "Handpose",
-		"status": 0
+		"status": 1
 	},
 	"/image/imageclassifier": {
 		"name": "Image Classifier",
