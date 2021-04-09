@@ -4,8 +4,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import CommonCamera from "../../../components/CommonCamera.vue";
-import CommonAI from "../../../util/AI";
+import CommonCamera from "../components/CommonCamera.vue";
+import CommonAI from "../util/AI";
 import { load, HandPose, AnnotatedPrediction } from "@tensorflow-models/handpose";
 
 export default defineComponent({

@@ -4,8 +4,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import CommonCamera from "../../../components/CommonCamera.vue";
-import CommonAI from "../../../util/AI";
+import CommonCamera from "../components/CommonCamera.vue";
+import CommonAI from "../util/AI";
 import { load, Keypoint, PoseNet, getAdjacentKeyPoints } from "@tensorflow-models/posenet";
 
 export default defineComponent({

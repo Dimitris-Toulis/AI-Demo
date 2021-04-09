@@ -1,41 +1,41 @@
 {
-	"/image/bodypix": {
+	"/bodypix": {
 		"name": "BodyPix",
 		"status": 0
 	},
-	"/image/face": {
+	"/face": {
 		"name": "Face Recognition",
 		"status": 1
 	},
-	"/image/handpose": {
+	"/handpose": {
 		"name": "Handpose",
 		"status": 1
 	},
-	"/image/imageclassifier": {
+	"/imageclassifier": {
 		"name": "Image Classifier",
 		"status": 0
 	},
-	"/image/objectdetector": {
+	"/objectdetector": {
 		"name": "Object Detector",
 		"status": 0
 	},
-	"/image/posenet": {
+	"/posenet": {
 		"name": "PoseNet",
 		"status": 1
 	},
-	"/image/unet": {
+	"/unet": {
 		"name": "UNET",
 		"status": 0
 	},
-	"/sound/speechcommands": {
+	"/speechcommands": {
 		"name": "Speech Commands",
 		"status": 0
 	},
-	"/text/qna": {
+	"/qna": {
 		"name": "QNA",
 		"status": 0
 	},
-	"/text/toxicityclassifier": {
+	"/toxicityclassifier": {
 		"name": "Toxicity Classifier",
 		"status": -1
 	}
