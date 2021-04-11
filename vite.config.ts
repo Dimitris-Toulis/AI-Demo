@@ -75,8 +75,7 @@ export default defineConfig({
 						res.setHeader(
 							header.key,
 							header.key == "Content-Security-Policy"
-								? header.value.split("style-src")[0] +
-										"style-src 'self' 'unsafe-inline'"
+								? header.value + " 'unsafe-inline'"
 								: header.value
 						)
 					);
