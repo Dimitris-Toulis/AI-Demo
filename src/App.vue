@@ -30,7 +30,7 @@ export default defineComponent({
 		onErrorCaptured(function (err) {
 			alert("Failed initializing!");
 		});
-		onMounted(() => navigator.serviceWorker.register("/sw.js"));
+		onMounted(() => import.meta.env.PROD && navigator.serviceWorker.register("/sw.js"));
 		return {
 			Demos,
 			Texts: Texts.Home,
