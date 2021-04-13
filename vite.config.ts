@@ -50,18 +50,6 @@ export default defineConfig({
 			},
 		},
 		{
-			name: "preload-tfjs",
-			apply: "build",
-			transformIndexHtml(html, bundle) {
-				const tags = Object.keys(bundle.bundle)
-					.filter((v) => v.includes("vendor/tfjs") || v.includes("tfjs-backend-wasm"))
-					.map((key) => {
-						return `<link rel=prefetch href=${key}>`;
-					});
-				return html.replace("</head>", tags.reduce((acc, val) => acc + val) + "</head>");
-			},
-		},
-		{
 			name: "generate-webmanifest",
 			apply: "build",
 			enforce: "post",
