@@ -39,9 +39,6 @@ registerRoute(
 	new StaleWhileRevalidate({
 		cacheName: "pages",
 		plugins: [
-			new ExpirationPlugin({
-				maxAgeSeconds: 60 * 60,
-			}),
 			new BackgroundSyncPlugin("document-queue", {
 				maxRetentionTime: 24 * 60,
 			}),
