@@ -38,18 +38,6 @@ export default defineConfig({
 			},
 		},
 		{
-			name: "minify-registerSW.js",
-			enforce: "post",
-			apply: "build",
-			async generateBundle(_, bundle) {
-				const file = bundle["registerSW.js"];
-				if (file?.type == "asset") {
-					if (typeof file.source != "string") return;
-					file.source = (await terser.minify(file.source)).code;
-				}
-			},
-		},
-		{
 			name: "generate-webmanifest",
 			apply: "build",
 			enforce: "post",
