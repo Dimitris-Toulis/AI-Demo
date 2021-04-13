@@ -3,6 +3,7 @@ import { registerRoute, setDefaultHandler } from "workbox-routing";
 import { CacheFirst, StaleWhileRevalidate, NetworkFirst } from "workbox-strategies";
 import { ExpirationPlugin } from "workbox-expiration";
 import { imageCache } from "workbox-recipes";
+import { BackgroundSyncPlugin } from "workbox-background-sync";
 
 precacheAndRoute(self.__WB_MANIFEST);
 
@@ -41,6 +42,9 @@ registerRoute(
 			new ExpirationPlugin({
 				maxAgeSeconds: 60 * 60,
 			}),
+			new BackgroundSyncPlugin("document-queue", {
+				maxRetentionTime: 24 * 60,
+			}),
 		],
 	})
 );
@@ -49,6 +53,11 @@ registerRoute(
 	({ url }) => url.pathname.includes("tfjs-models"),
 	new StaleWhileRevalidate({
 		cacheName: "tfjs-models",
+		plugins: [
+			new BackgroundSyncPlugin("tfjs-model-queue", {
+				maxRetentionTime: 24 * 60,
+			}),
+		],
 	})
 );
 
