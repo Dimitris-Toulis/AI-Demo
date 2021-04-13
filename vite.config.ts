@@ -4,7 +4,6 @@ import Pages from "vite-plugin-pages";
 import WindiCSS from "vite-plugin-windicss";
 import { minifyHtml } from "vite-plugin-html";
 import fs from "fs";
-import terser from "terser";
 import { injectManifest } from "rollup-plugin-workbox";
 
 const headers: { key: string; value: string }[] = JSON.parse(
