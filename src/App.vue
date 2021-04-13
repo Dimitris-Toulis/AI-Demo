@@ -23,7 +23,6 @@ import { defineComponent, onErrorCaptured, onMounted } from "vue";
 import Texts from "./texts.json";
 import Demos from "./demos.json";
 import { RouteLocationNormalizedLoaded, useRoute } from "vue-router";
-import { registerSW } from "virtual:pwa-register";
 
 export default defineComponent({
 	name: "App",
@@ -31,7 +30,7 @@ export default defineComponent({
 		onErrorCaptured(function (err) {
 			alert("Failed initializing!");
 		});
-		onMounted(registerSW);
+		onMounted(() => navigator.serviceWorker.register("/sw.js"));
 		return {
 			Demos,
 			Texts: Texts.Home,
