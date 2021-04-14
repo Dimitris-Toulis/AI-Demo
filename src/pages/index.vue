@@ -6,10 +6,14 @@
 				v-show="demo.status != -1"
 				class="m-4 prose-xl select-none md:prose-2xl"
 			>
-				<router-link v-if="demo.status == 1" :to="path"
+				<router-link class="dark:text-gray-200" v-if="demo.status == 1" :to="path"
 					>{{ Texts[demo.name] }} ({{ demo.name }})</router-link
 				>
-				<p v-else class="opacity-60" aria-disabled="true">
+				<p
+					v-else
+					class="opacity-60 dark:opacity-50 dark:text-gray-200"
+					aria-disabled="true"
+				>
 					{{ Texts[demo.name] }} ({{ demo.name }})
 				</p>
 			</li>

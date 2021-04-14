@@ -1,5 +1,8 @@
 <template>
-	<h1 v-if="(page.name || 'index') != 'index'" class="m-4 text-center prose-xl md:prose-2xl">
+	<h1
+		v-if="(page.name || 'index') != 'index'"
+		class="m-4 text-center prose-xl md:prose-2xl dark:text-gray-200"
+	>
 		{{ Texts[Demos[page.path]?.name] }} ({{ Demos[page.path]?.name }})
 	</h1>
 	<main
