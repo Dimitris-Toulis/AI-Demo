@@ -28,7 +28,7 @@
 		"vite": "^2.1.5",
 		"vite-plugin-html": "^2.0.6",
 		"vite-plugin-pages": "^0.9.3",
-		"vite-plugin-windicss": "^0.14.0",
+		"vite-plugin-windicss": "^0.14.2",
 		"workbox-background-sync": "^6.1.5",
 		"workbox-expiration": "^6.1.5",
 		"workbox-precaching": "^6.1.2",
