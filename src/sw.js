@@ -1,6 +1,6 @@
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
-import { registerRoute, setDefaultHandler, NavigationRoute } from "workbox-routing";
-import { CacheFirst, StaleWhileRevalidate, NetworkFirst } from "workbox-strategies";
+import { registerRoute, NavigationRoute } from "workbox-routing";
+import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
 import { ExpirationPlugin } from "workbox-expiration";
 import { imageCache } from "workbox-recipes";
 import { BackgroundSyncPlugin } from "workbox-background-sync";
@@ -47,5 +47,3 @@ registerRoute(
 		],
 	})
 );
-
-setDefaultHandler(new NetworkFirst());
