@@ -1,5 +1,5 @@
-import { precacheAndRoute } from "workbox-precaching";
-import { registerRoute, setDefaultHandler } from "workbox-routing";
+import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
+import { registerRoute, setDefaultHandler, NavigationRoute } from "workbox-routing";
 import { CacheFirst, StaleWhileRevalidate, NetworkFirst } from "workbox-strategies";
 import { ExpirationPlugin } from "workbox-expiration";
 import { imageCache } from "workbox-recipes";
@@ -34,17 +34,7 @@ registerRoute(
 	})
 );
 
-registerRoute(
-	({ request }) => request.destination == "document",
-	new StaleWhileRevalidate({
-		cacheName: "pages",
-		plugins: [
-			new BackgroundSyncPlugin("document-queue", {
-				maxRetentionTime: 24 * 60,
-			}),
-		],
-	})
-);
+registerRoute(new NavigationRoute(createHandlerBoundToURL("/index.html")));
 
 registerRoute(
 	({ url }) => url.pathname.includes("tfjs-models"),
