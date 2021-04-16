@@ -56,7 +56,7 @@ export default defineConfig({
 					source: JSON.stringify({
 						name: "AI Demo",
 						short_name: "AI Demo",
-						display: "minimal-ui",
+						display: "standalone",
 						theme_color: "#b51414",
 						start_url: "/",
 						icons: [
