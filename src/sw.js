@@ -9,6 +9,12 @@ precacheAndRoute(self.__WB_MANIFEST);
 
 imageCache();
 
+addEventListener("message", (event) => {
+	if (event.data && event.data.type === "SKIP_WAITING") {
+		self.skipWaiting();
+	}
+});
+
 registerRoute(
 	({ request, url }) =>
 		["style", "script", "worker"].includes(request.destination) && url.origin == self.origin,

@@ -19,13 +19,38 @@
 		</Suspense>
 	</main>
 	<router-view v-else></router-view>
+	<transition name="fade">
+		<div
+			class="bg-gray-500 bg-green-600 h-30 m-5 text-center text-white p-3 right-0 bottom-0 shadow-2xl w-70 absolute dark:text-gray-200"
+			v-if="SWprompt"
+		>
+			<p class="prose-lg">Reload to update</p>
+			<div class="flex flex-row mt-2 justify-around">
+				<button
+					@click="skipSWwaiting()"
+					class="rounded-lg bg-blue-600 p-2 pr-4 pl-4 prose-lg"
+				>
+					Reload
+				</button>
+				<button
+					@click="closeSWprompt()"
+					class="rounded-lg bg-blue-600 p-2 pr-4 pl-4 prose-lg"
+				>
+					Close
+				</button>
+			</div>
+		</div></transition
+	>
 </template>
 
 <script lang="ts">
-import { defineComponent, onErrorCaptured, onMounted } from "vue";
+import { defineComponent, onErrorCaptured, onMounted, Ref, ref } from "vue";
 import Texts from "./texts.json";
 import Demos from "./demos.json";
 import { RouteLocationNormalizedLoaded, useRoute } from "vue-router";
+import { Workbox, messageSW } from "workbox-window";
+
+const wb = new Workbox("/sw.js");
 
 export default defineComponent({
 	name: "App",
@@ -33,11 +58,25 @@ export default defineComponent({
 		onErrorCaptured(function (err) {
 			alert("Failed initializing!");
 		});
-		onMounted(() => import.meta.env.PROD && navigator.serviceWorker.register("/sw.js"));
+		let SWprompt = ref(false);
+		const skipSWwaiting = async () => {
+			wb.addEventListener("controlling", () => window.location.reload());
+			messageSW(await wb.getSW(), { type: "SKIP_WAITING" });
+		};
+		const closeSWprompt = () => (SWprompt.value = false);
+		onMounted(() => {
+			if (import.meta.env.PROD) wb.register();
+			wb.addEventListener("waiting", () => {
+				SWprompt.value = true;
+			});
+		});
 		return {
 			Demos,
 			Texts: Texts.Home,
 			page: useRoute(),
+			SWprompt,
+			skipSWwaiting,
+			closeSWprompt,
 		} as {
 			Demos: {
 				[key: string]: {
@@ -49,6 +88,9 @@ export default defineComponent({
 				[key: string]: string;
 			};
 			page: RouteLocationNormalizedLoaded;
+			SWprompt: Ref<boolean>;
+			skipSWwaiting: () => void;
+			closeSWprompt: () => void;
 		};
 	},
 });
@@ -75,5 +117,17 @@ export default defineComponent({
 	100% {
 		transform: rotate(360deg);
 	}
+}
+</style>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.25s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
 }
 </style>
