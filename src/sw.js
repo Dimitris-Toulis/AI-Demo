@@ -37,7 +37,7 @@ registerRoute(
 registerRoute(new NavigationRoute(createHandlerBoundToURL("/index.html")));
 
 registerRoute(
-	({ url }) => url.pathname.includes("tfjs-models"),
+	({ url }) => url.pathname.includes("tfjs-model"),
 	new StaleWhileRevalidate({
 		cacheName: "tfjs-models",
 		plugins: [
