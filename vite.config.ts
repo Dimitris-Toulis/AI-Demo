@@ -100,10 +100,9 @@ export default defineConfig({
 					}),
 				});
 				if (bundle["index.html"].type == "asset") {
-					bundle["index.html"].source = (bundle["index.html"].source as string).replace(
-						"/assets/192.png",
-						assets["192.png"]
-					);
+					bundle["index.html"].source = (bundle["index.html"].source as string)
+						.replace("/assets/192.png", assets["192.png"])
+						.replace("</head>", "<link rel=manifest href=/app.webmanifest></head>");
 				} else {
 					this.warn("index.html not an asset!");
 				}
