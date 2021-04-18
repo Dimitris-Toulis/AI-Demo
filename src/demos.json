@@ -29,7 +29,7 @@
 	},
 	"/speechcommands": {
 		"name": "Speech Commands",
-		"status": 0
+		"status": 1
 	},
 	"/qna": {
 		"name": "QNA",
