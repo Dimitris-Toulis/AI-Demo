@@ -17,7 +17,7 @@
 	},
 	"/objectdetector": {
 		"name": "Object Detector",
-		"status": 0
+		"status": 1
 	},
 	"/posenet": {
 		"name": "PoseNet",
