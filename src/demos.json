@@ -13,7 +13,7 @@
 	},
 	"/imageclassifier": {
 		"name": "Image Classifier",
-		"status": 0
+		"status": 1
 	},
 	"/objectdetector": {
 		"name": "Object Detector",

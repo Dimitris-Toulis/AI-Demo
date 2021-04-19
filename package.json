@@ -10,6 +10,7 @@
 		"@tensorflow-models/body-pix": "^2.1.0",
 		"@tensorflow-models/face-landmarks-detection": "^0.0.3",
 		"@tensorflow-models/handpose": "^0.0.7",
+		"@tensorflow-models/mobilenet": "^2.1.0",
 		"@tensorflow-models/posenet": "^2.2.2",
 		"@tensorflow-models/qna": "^1.0.0",
 		"@tensorflow-models/speech-commands": "^0.5.4",
