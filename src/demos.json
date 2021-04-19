@@ -29,7 +29,7 @@
 	},
 	"/qna": {
 		"name": "QNA",
-		"status": 0
+		"status": 1
 	},
 	"/toxicityclassifier": {
 		"name": "Toxicity Classifier",
