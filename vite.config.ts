@@ -119,6 +119,7 @@ export default defineConfig({
 	build: {
 		polyfillDynamicImport: false,
 		rollupOptions: {
+			external: ["util"],
 			plugins: [
 				(injectManifest({
 					mode: "production",
