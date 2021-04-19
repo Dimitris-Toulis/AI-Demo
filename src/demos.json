@@ -23,10 +23,6 @@
 		"name": "PoseNet",
 		"status": 1
 	},
-	"/unet": {
-		"name": "UNET",
-		"status": 0
-	},
 	"/speechcommands": {
 		"name": "Speech Commands",
 		"status": 1
