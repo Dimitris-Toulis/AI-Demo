@@ -55,9 +55,6 @@ const wb = new Workbox("/sw.js");
 export default defineComponent({
 	name: "App",
 	setup: function () {
-		onErrorCaptured(function (err) {
-			alert("Failed initializing!");
-		});
 		let SWprompt = ref(false);
 		const skipSWwaiting = async () => {
 			wb.addEventListener("controlling", () => window.location.reload());

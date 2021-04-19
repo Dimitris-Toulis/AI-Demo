@@ -12,11 +12,15 @@ import "./assets/512.png";
 import "./assets/512.webp";
 import "./assets/maskable_192.png";
 
-createApp(App)
-	.use(
-		createRouter({
-			history: createWebHistory(),
-			routes,
-		})
-	)
-	.mount("#app");
+const app = createApp(App);
+app.use(
+	createRouter({
+		history: createWebHistory(),
+		routes,
+	})
+);
+app.config.errorHandler = (err) => {
+	alert("Error! " + err);
+	console.log(err);
+};
+app.mount("#app");
