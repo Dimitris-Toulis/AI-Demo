@@ -1,12 +1,12 @@
 <template>
-	<CommonCamera :draw="draw" :ai="ai" :startup="startup" />
+	<CommonCamera :draw="draw" :ai="ai" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import CommonCamera from "../components/CommonCamera.vue";
 import CommonAI from "../util/AI";
-import { load, ObjectDetection, DetectedObject } from "../util/COCO-SSD";
+import { load, DetectedObject } from "../util/COCO-SSD";
 
 export default defineComponent({
 	name: "ObjectDetector",
@@ -14,6 +14,7 @@ export default defineComponent({
 		CommonCamera,
 	},
 	setup: async function () {
+		const model = await CommonAI(load);
 		const draw = async (objects: DetectedObject[], ctx: CanvasRenderingContext2D) => {
 			ctx.lineWidth = 5;
 			ctx.strokeStyle = `rgb(255,0,0)`;
@@ -25,12 +26,10 @@ export default defineComponent({
 				ctx.strokeText(`${object.class} ${(object.score * 100).toFixed(2)}%`, x, y - 10);
 			});
 		};
-		const startup = CommonAI(load);
-		const ai = (model: ObjectDetection, video: HTMLVideoElement) => {
+		const ai = (video: HTMLVideoElement) => {
 			return model.detect(video);
 		};
 		return {
-			startup,
 			ai,
 			draw,
 		};

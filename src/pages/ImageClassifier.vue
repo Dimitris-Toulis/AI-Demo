@@ -4,7 +4,7 @@
 			<p>{{ result.className }}</p>
 			<p>{{ (result.probability * 100).toFixed(2) }}%</p>
 		</div>
-		<CommonCamera :draw="draw" :ai="ai" :startup="startup" />
+		<CommonCamera :draw="draw" :ai="ai" />
 	</div>
 </template>
 
@@ -12,7 +12,7 @@
 import { defineComponent, ref, Ref } from "vue";
 import CommonCamera from "../components/CommonCamera.vue";
 import CommonAI from "../util/AI";
-import { load, MobileNet } from "@tensorflow-models/mobilenet";
+import { load } from "@tensorflow-models/mobilenet";
 
 export default defineComponent({
 	name: "ImageClassifier",
@@ -20,6 +20,7 @@ export default defineComponent({
 		CommonCamera,
 	},
 	setup: async function () {
+		const model = await CommonAI(load);
 		let results: Ref<
 			{
 				className: string;
@@ -36,12 +37,10 @@ export default defineComponent({
 			results.value = predictions;
 			console.log(predictions);
 		};
-		const startup = CommonAI(load);
-		const ai = async (model: MobileNet, video: HTMLVideoElement) => {
+		const ai = async (video: HTMLVideoElement) => {
 			return model.classify(video);
 		};
 		return {
-			startup,
 			ai,
 			draw,
 			results,

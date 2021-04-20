@@ -11,7 +11,7 @@ export default defineComponent({
 	name: "SpeechCommands",
 	setup: async function () {
 		let prediction = ref("Start!");
-		const model = await CommonAI(async () => await create("BROWSER_FFT"))();
+		const model = await CommonAI(async () => await create("BROWSER_FFT"));
 		await model.ensureModelLoaded();
 		const wordLabels = model.wordLabels();
 		model.listen(async (result) => {

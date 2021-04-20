@@ -32,7 +32,7 @@ import CommonAI from "../util/AI";
 export default defineComponent({
 	name: "QNA",
 	setup: async () => {
-		const model = await CommonAI(load)();
+		const model = await CommonAI(load);
 		let sumbited = ref(false);
 		let text = ref("");
 		let question = ref("");

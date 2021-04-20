@@ -1,12 +1,12 @@
 <template>
-	<CommonCamera :draw="draw" :ai="ai" :startup="startup" />
+	<CommonCamera :draw="draw" :ai="ai" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import CommonCamera from "../components/CommonCamera.vue";
 import CommonAI from "../util/AI";
-import { load, HandPose, AnnotatedPrediction } from "@tensorflow-models/handpose";
+import { load, AnnotatedPrediction } from "@tensorflow-models/handpose";
 
 export default defineComponent({
 	name: "Handpose",
@@ -14,6 +14,8 @@ export default defineComponent({
 		CommonCamera,
 	},
 	setup: async function () {
+		const model = await CommonAI(load);
+
 		const draw = async (hands: AnnotatedPrediction[], ctx: CanvasRenderingContext2D) => {
 			ctx.lineWidth = 5;
 			ctx.fillStyle = `rgba(255,0,0)`;
@@ -26,12 +28,10 @@ export default defineComponent({
 				});
 			});
 		};
-		const startup = CommonAI(load);
-		const ai = async (model: HandPose, video: HTMLVideoElement) => {
+		const ai = async (video: HTMLVideoElement) => {
 			return model.estimateHands(video);
 		};
 		return {
-			startup,
 			ai,
 			draw,
 		};

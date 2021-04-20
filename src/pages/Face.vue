@@ -1,5 +1,5 @@
 <template>
-	<CommonCamera :draw="draw" :ai="ai" :startup="startup" />
+	<CommonCamera :draw="draw" :ai="ai" />
 </template>
 
 <script lang="ts">
@@ -10,7 +10,7 @@ import {
 	Coord2D,
 	Coords3D,
 } from "@tensorflow-models/face-landmarks-detection/dist/mediapipe-facemesh/util";
-import { load, FaceLandmarksDetector } from "@tensorflow-models/face-landmarks-detection";
+import { load } from "@tensorflow-models/face-landmarks-detection";
 
 interface AnnotatedPredictionValues {
 	kind: "MediaPipePredictionValues";
@@ -30,6 +30,7 @@ export default defineComponent({
 		CommonCamera,
 	},
 	setup: async function () {
+		const model = await CommonAI(load);
 		const draw = async (faces: AnnotatedPredictionValues[], ctx: CanvasRenderingContext2D) => {
 			ctx.lineWidth = 5;
 			ctx.fillStyle = `rgb(50,200,255)`;
@@ -50,14 +51,12 @@ export default defineComponent({
 				});
 			});
 		};
-		const startup = CommonAI(load);
-		const ai = (model: FaceLandmarksDetector, video: HTMLVideoElement) => {
+		const ai = (video: HTMLVideoElement) => {
 			return model.estimateFaces({
 				input: video,
 			});
 		};
 		return {
-			startup,
 			ai,
 			draw,
 		};

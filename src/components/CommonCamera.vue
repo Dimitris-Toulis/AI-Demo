@@ -9,12 +9,8 @@ import { defineComponent, onBeforeUnmount, onMounted, PropType, ref, Ref } from 
 export default defineComponent({
 	name: "CommonCamera",
 	props: {
-		startup: {
-			type: Function as PropType<() => Promise<any>>,
-			required: true,
-		},
 		ai: {
-			type: Function as PropType<(model: any, video: HTMLVideoElement) => Promise<any>>,
+			type: Function as PropType<(video: HTMLVideoElement) => Promise<any>>,
 			required: true,
 		},
 		draw: {
@@ -29,7 +25,6 @@ export default defineComponent({
 		const video: Ref<null | HTMLVideoElement> = ref(null);
 		let ctx: CanvasRenderingContext2D | null = null;
 		let requestVideoFrameCallback: (callback: () => any) => any;
-		let model: any;
 		onMounted(async () => {
 			(video as Ref<HTMLVideoElement>).value.srcObject = await window.navigator.mediaDevices.getUserMedia(
 				{
@@ -43,11 +38,9 @@ export default defineComponent({
 		});
 		onBeforeUnmount(() => {
 			(video.value!.srcObject! as MediaStream).getTracks().forEach((track) => track.stop());
-			model = null;
 		});
 		const main = async () => {
-			if (model == null) return;
-			let results = await props.ai(model, video.value!);
+			let results = await props.ai(video.value!);
 			ctx?.drawImage(video.value!, 0, 0, ctx.canvas.width, ctx.canvas.height);
 			props.draw(results, ctx!);
 			requestVideoFrameCallback(main);
@@ -68,7 +61,6 @@ export default defineComponent({
 				? video.value?.requestVideoFrameCallback.bind(video.value)
 				: requestAnimationFrame;
 			await video.value?.play();
-			model = await props.startup();
 			requestAnimationFrame(main);
 		};
 		return {

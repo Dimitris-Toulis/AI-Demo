@@ -1,5 +1,5 @@
 <template>
-	<CommonCamera :draw="draw" :ai="ai" :startup="startup" />
+	<CommonCamera :draw="draw" :ai="ai" />
 </template>
 
 <script lang="ts">
@@ -15,6 +15,7 @@ export default defineComponent({
 	},
 	setup: async function () {
 		let _video: HTMLVideoElement;
+		const model = await CommonAI(bodypix.load);
 		const draw = async (
 			personSegmentation: bodypix.SemanticPersonSegmentation,
 			ctx: CanvasRenderingContext2D
@@ -25,13 +26,11 @@ export default defineComponent({
 			const mask = bodypix.toMask(personSegmentation);
 			bodypix.drawMask(ctx.canvas, _video, mask, 0.9);
 		};
-		const startup = CommonAI(bodypix.load);
-		const ai = (model: bodypix.BodyPix, video: HTMLVideoElement) => {
+		const ai = (video: HTMLVideoElement) => {
 			_video = video;
 			return model.segmentPerson(video);
 		};
 		return {
-			startup,
 			ai,
 			draw,
 		};

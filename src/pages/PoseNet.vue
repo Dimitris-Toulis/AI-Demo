@@ -1,5 +1,5 @@
 <template>
-	<CommonCamera :draw="draw" :ai="ai" :startup="startup" />
+	<CommonCamera :draw="draw" :ai="ai" />
 </template>
 
 <script lang="ts">
@@ -14,6 +14,7 @@ export default defineComponent({
 		CommonCamera,
 	},
 	setup: async function () {
+		const model = await CommonAI(load);
 		const draw = async (keypoints: Keypoint[][], ctx: CanvasRenderingContext2D) => {
 			ctx.lineWidth = 5;
 			ctx.strokeStyle = `rgba(255,0,0)`;
@@ -27,12 +28,10 @@ export default defineComponent({
 			});
 			ctx.stroke();
 		};
-		const startup = CommonAI(load);
-		const ai = async (model: PoseNet, video: HTMLVideoElement) => {
+		const ai = async (video: HTMLVideoElement) => {
 			return getAdjacentKeyPoints((await model.estimateSinglePose(video)).keypoints, 0.5);
 		};
 		return {
-			startup,
 			ai,
 			draw,
 		};
