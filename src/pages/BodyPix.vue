@@ -6,7 +6,7 @@
 import { defineComponent } from "vue";
 import CommonCamera from "../components/CommonCamera.vue";
 import CommonAI from "../util/AI";
-import * as bodypix from "@tensorflow-models/body-pix";
+import { load, SemanticPersonSegmentation, toMask, drawMask } from "@tensorflow-models/body-pix";
 
 export default defineComponent({
 	name: "BodyPix",
@@ -15,16 +15,16 @@ export default defineComponent({
 	},
 	setup: async function () {
 		let _video: HTMLVideoElement;
-		const model = await CommonAI(bodypix.load);
+		const model = await CommonAI(load);
 		const draw = async (
-			personSegmentation: bodypix.SemanticPersonSegmentation,
+			personSegmentation: SemanticPersonSegmentation,
 			ctx: CanvasRenderingContext2D
 		) => {
 			ctx.lineWidth = 5;
 			ctx.fillStyle = `rgb(50,200,255)`;
 			ctx.strokeStyle = `rgb(200,80,55)`;
-			const mask = bodypix.toMask(personSegmentation);
-			bodypix.drawMask(ctx.canvas, _video, mask, 0.9);
+			const mask = toMask(personSegmentation);
+			drawMask(ctx.canvas, _video, mask, 0.9);
 		};
 		const ai = (video: HTMLVideoElement) => {
 			_video = video;
