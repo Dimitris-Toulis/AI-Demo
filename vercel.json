@@ -70,15 +70,6 @@
 			]
 		},
 		{
-			"source": "/(.*).(avif|webp|png)",
-			"headers": [
-				{
-					"key": "Cache-Control",
-					"value": "public, max-age=1800, stale-while-revalidate=3600"
-				}
-			]
-		},
-		{
 			"source": "/manifest.webmanifest",
 			"headers": [
 				{
