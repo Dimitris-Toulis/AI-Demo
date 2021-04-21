@@ -29,10 +29,6 @@ export default defineComponent({
 		const video: Ref<null | HTMLVideoElement> = ref(null);
 		let ctx: CanvasRenderingContext2D | null = null;
 		let requestVideoFrameCallback: (callback: () => any) => any;
-		console.log(
-			props.facingMode ??
-				(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? "environment" : undefined)
-		);
 		onMounted(async () => {
 			(video as Ref<HTMLVideoElement>).value.srcObject = await window.navigator.mediaDevices.getUserMedia(
 				{
