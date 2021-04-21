@@ -1,5 +1,5 @@
 <template>
-	<CommonCamera :draw="draw" :ai="ai" />
+	<CommonCamera :draw="draw" :ai="ai" :facing-mode="'user'" />
 </template>
 
 <script lang="ts">
