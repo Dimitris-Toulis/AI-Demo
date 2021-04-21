@@ -21,8 +21,7 @@
 	<router-view v-else></router-view>
 	<transition name="fade">
 		<div
-			class="bg-gray-500 bg-green-600 h-30 m-5 text-center text-white p-3 right-0 bottom-0 shadow-2xl w-70 absolute dark:text-gray-200"
-			v-if="SWprompt"
+			class="bg-gray-500 bg-green-600 h-30 m-5 text-center text-white p-3 right-0 bottom-0 shadow-2xl w-70 fixed dark:text-gray-200"
 		>
 			<p class="prose-lg">Reload to update</p>
 			<div class="flex flex-row mt-2 justify-around">
