@@ -57,7 +57,8 @@ export default defineConfig({
 						name: "AI Demo",
 						short_name: "AI Demo",
 						display: "standalone",
-						theme_color: "#b51414",
+						theme_color: "#2eeef0",
+						background_color: "#1f2937",
 						start_url: "/",
 						icons: [
 							{
