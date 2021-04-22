@@ -6,7 +6,7 @@
 import { defineComponent } from "vue";
 import CommonCamera from "../components/CommonCamera.vue";
 import CommonAI from "../util/AI";
-import { load, DetectedObject } from "../util/COCO-SSD";
+import { load, DetectedObject } from "@tensorflow-models/coco-ssd";
 
 export default defineComponent({
 	name: "ObjectDetector",
