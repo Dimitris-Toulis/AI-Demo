@@ -5,7 +5,8 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import CommonAI from "../util/AI";
-import { create } from "@tensorflow-models/speech-commands";
+//@ts-ignore
+import { create } from "../util/speech-commands.esm";
 
 export default defineComponent({
 	name: "SpeechCommands",
@@ -14,7 +15,7 @@ export default defineComponent({
 		const model = await CommonAI(async () => await create("BROWSER_FFT"));
 		await model.ensureModelLoaded();
 		const wordLabels = model.wordLabels();
-		model.listen(async (result) => {
+		model.listen(async (result: any) => {
 			const word = (() => {
 				let word: {
 					word: string;
