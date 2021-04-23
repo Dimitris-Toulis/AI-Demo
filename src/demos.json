@@ -30,9 +30,5 @@
 	"/qna": {
 		"name": "QNA",
 		"status": 1
-	},
-	"/toxicityclassifier": {
-		"name": "Toxicity Classifier",
-		"status": -1
 	}
 }
