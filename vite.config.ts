@@ -130,6 +130,21 @@ export default defineConfig({
 					globPatterns: ["assets/**/*.{js,css}", "index.html"],
 				}) as unknown) as Plugin,
 			],
+			output: {
+				manualChunks: (id) => {
+					if (id.includes("@tensorflow/")) {
+						if (
+							!id.includes("@tensorflow/tfjs-layers") &&
+							!id.includes("@tensorflow/tfjs-data")
+						) {
+							return "ai";
+						} else {
+							return "vendor/tfjs-extras";
+						}
+					}
+					if (id.includes("util/AI")) return "AI";
+				},
+			},
 		},
 		terserOptions: {
 			format: {
