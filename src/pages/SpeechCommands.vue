@@ -35,7 +35,7 @@ export default defineComponent({
 				});
 				return word;
 			})();
-			prediction.value = word.word;
+			if (word.score > 0.7) prediction.value = word.word;
 		});
 		return {
 			prediction,
