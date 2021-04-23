@@ -28,7 +28,7 @@ import Demos from "../demos.json";
 
 export default defineComponent({
 	name: "Home",
-	data: function () {
+	setup: function () {
 		return {
 			Texts: Texts.Home,
 			Demos,
