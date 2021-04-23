@@ -15,7 +15,7 @@
 		"@tensorflow-models/posenet": "^2.2.2",
 		"@tensorflow-models/qna": "^1.0.0",
 		"@tensorflow-models/speech-commands": "^0.5.4",
-		"@tensorflow/tfjs-backend-wasm": "~3.3.0",
+		"@tensorflow/tfjs-backend-wasm": "~3.5.0",
 		"@tensorflow/tfjs-converter": "^3.4.0",
 		"@tensorflow/tfjs-core": "^3.4.0",
 		"@tensorflow/tfjs-data": "^3.4.0",
