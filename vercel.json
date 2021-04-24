@@ -64,24 +64,6 @@
 					"value": "public, max-age=360, stale-while-revalidate=86400"
 				}
 			]
-		},
-		{
-			"source": "/manifest.webmanifest",
-			"headers": [
-				{
-					"key": "Cache-Control",
-					"value": "public, max-age=360, stale-while-revalidate=3600"
-				}
-			]
-		},
-		{
-			"source": "/robots.txt",
-			"headers": [
-				{
-					"key": "Cache-Control",
-					"value": "public, max-age=86400"
-				}
-			]
 		}
 	]
 }
