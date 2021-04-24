@@ -1,4 +1,5 @@
+import typography from "windicss/plugin/typography";
 export default {
 	darkMode: "media",
-	plugins: [require("windicss/plugin/typography")],
+	plugins: [typography()],
 };
