@@ -57,6 +57,8 @@ export default defineConfig({
 						name: "AI Demo",
 						short_name: "AI Demo",
 						display: "standalone",
+						description:
+							"A website to try different Tensorflow.js AI models (made by Dimitris Toulis)",
 						theme_color: "#2eeef0",
 						background_color: "#1f2937",
 						orientation: "landscape",
