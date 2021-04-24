@@ -139,11 +139,12 @@ export default defineConfig({
 						) {
 							return "AI";
 						} else {
-							return "vendor/tfjs-extras";
+							return "SpeechCommands";
 						}
 					}
+					if (id.includes("SpeechCommands.vue")) return "SpeechCommands";
 					if (id.includes("util/AI")) return "AI";
-					if (id.includes("vue") && !id.includes(".vue")) return "vendor/vue";
+					if (id.includes("vue") && !id.includes(".vue")) return "vue";
 				},
 			},
 		},
