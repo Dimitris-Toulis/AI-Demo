@@ -137,12 +137,13 @@ export default defineConfig({
 							!id.includes("@tensorflow/tfjs-layers") &&
 							!id.includes("@tensorflow/tfjs-data")
 						) {
-							return "ai";
+							return "AI";
 						} else {
 							return "vendor/tfjs-extras";
 						}
 					}
 					if (id.includes("util/AI")) return "AI";
+					if (id.includes("vue") && !id.includes(".vue")) return "vendor/vue";
 				},
 			},
 		},
