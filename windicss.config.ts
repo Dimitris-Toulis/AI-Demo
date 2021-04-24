@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	darkMode: "media",
 	plugins: [require("windicss/plugin/typography")],
 };
