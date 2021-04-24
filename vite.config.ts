@@ -132,19 +132,11 @@ export default defineConfig({
 			],
 			output: {
 				manualChunks: (id) => {
-					if (id.includes("@tensorflow/")) {
-						if (
-							!id.includes("@tensorflow/tfjs-layers") &&
-							!id.includes("@tensorflow/tfjs-data")
-						) {
-							return "AI";
-						} else {
-							return "SpeechCommands";
-						}
-					}
-					if (id.includes("SpeechCommands.vue")) return "SpeechCommands";
+					if (id.includes("@tensorflow/tfjs-layers")) return "vendor/tfjs-layers";
+					if (id.includes("@tensorflow/tfjs-data")) return "vendor/tfjs-data";
+					if (id.includes("@tensorflow/")) return "AI";
+					if (id.includes("vue") && !id.includes(".vue")) return "vendor/vue";
 					if (id.includes("util/AI")) return "AI";
-					if (id.includes("vue") && !id.includes(".vue")) return "vue";
 				},
 			},
 		},
