@@ -7,7 +7,7 @@
 	</h1>
 	<main
 		v-if="(page.name || 'index') != 'index'"
-		class="border flex h-full border-blue-600 border-5 flex-1 m-4 mt-0 p-4"
+		class="border flex h-full min-w-[min-content] border-blue-600 border-5 flex-1 m-4 mt-0 p-4"
 	>
 		<Suspense>
 			<template #default>
