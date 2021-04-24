@@ -61,7 +61,6 @@ export default defineConfig({
 							"A website to try different Tensorflow.js AI models (made by Dimitris Toulis)",
 						theme_color: "#2eeef0",
 						background_color: "#1f2937",
-						orientation: "landscape",
 						start_url: "/",
 						icons: [
 							{
