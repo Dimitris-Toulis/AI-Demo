@@ -1,6 +1,6 @@
 <template>
 	<video ref="video" class="hidden" @loadeddata="videoLoaded()"></video>
-	<canvas class="h-full flex-1" ref="canvas"></canvas>
+	<canvas ref="canvas"></canvas>
 </template>
 
 <script lang="ts">
@@ -64,6 +64,7 @@ export default defineComponent({
 
 			ctx!.canvas.width = width;
 			ctx!.canvas.height = height;
+			ctx!.canvas.style.height = Math.min(height * 2, window.innerHeight) + "px";
 
 			video.value!.width = width;
 			video.value!.height = height;
