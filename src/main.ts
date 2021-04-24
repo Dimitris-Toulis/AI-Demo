@@ -11,6 +11,8 @@ import "./assets/512.avif";
 import "./assets/512.png";
 import "./assets/512.webp";
 import "./assets/maskable_192.png";
+import "./assets/screenshot_light.webp";
+import "./assets/screenshot_dark.webp";
 
 const app = createApp(App);
 app.use(

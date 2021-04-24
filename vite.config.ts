@@ -41,7 +41,7 @@ export default defineConfig({
 			apply: "build",
 			enforce: "post",
 			async generateBundle(_, bundle) {
-				const imageRegex = /^assets\/(maskable_)?(192|512|icon2)\.(\w|\d)+\.(png|webp|avif)/;
+				const imageRegex = /^assets\/(maskable_)?(192|512|screenshot_light|screenshot_dark)\.(\w|\d)+\.(png|webp|avif)/;
 				const assets = Object.keys(bundle)
 					.filter((v) => imageRegex.test(v))
 					.map((v) => {
@@ -97,6 +97,18 @@ export default defineConfig({
 								sizes: "192x192",
 								type: "image/png",
 								purpose: "maskable",
+							},
+						],
+						screenshots: [
+							{
+								src: assets["screenshot_light.webp"],
+								sizes: "1190x938",
+								type: "image/webp",
+							},
+							{
+								src: assets["screenshot_dark.webp"],
+								sizes: "1190x938",
+								type: "image/webp",
 							},
 						],
 					}),
