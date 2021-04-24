@@ -27,17 +27,14 @@ export default defineComponent({
 	setup: async function (props) {
 		const canvas: Ref<null | HTMLCanvasElement> = ref(null);
 		const video: Ref<null | HTMLVideoElement> = ref(null);
+		const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 		let ctx: CanvasRenderingContext2D | null = null;
 		let requestVideoFrameCallback: (callback: () => any) => any;
 		onMounted(async () => {
 			(video as Ref<HTMLVideoElement>).value.srcObject = await window.navigator.mediaDevices.getUserMedia(
 				{
 					video: {
-						facingMode:
-							props.facingMode ??
-							(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-								? "environment"
-								: undefined),
+						facingMode: props.facingMode ?? (isMobile ? "environment" : undefined),
 					},
 				}
 			);
@@ -64,7 +61,8 @@ export default defineComponent({
 
 			ctx!.canvas.width = width;
 			ctx!.canvas.height = height;
-			ctx!.canvas.style.height = Math.min(height * 2, window.innerHeight) + "px";
+			ctx!.canvas.style.height =
+				Math.min(height * (isMobile ? 1 : 2), window.innerHeight - 150) + "px";
 
 			video.value!.width = width;
 			video.value!.height = height;
