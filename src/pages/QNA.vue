@@ -1,19 +1,19 @@
 <template>
 	<div>
-		<label for="text">Passage</label
+		<label for="text" class="dark:text-white">Passage</label
 		><button class="rounded-md bg-blue-600 text-white ml-5 w-15" @click="fill()">Fill</button>
 		<textarea
 			:cols="300"
 			id="text"
 			v-model="text"
-			class="border rounded-md border-gray-500 h-[50%] w-full p-3 resize-none dark:border-none"
+			class="border rounded-md border-gray-500 h-[50%] w-full p-3 resize-none dark:border-none dark:bg-[#3b3b3b] dark:text-gray-100"
 		></textarea>
-		<label for="question">Question</label>
+		<label for="question" class="dark:text-white">Question</label>
 		<input
 			type="text"
 			id="question"
 			v-model="question"
-			class="border rounded-md border-gray-500 h-[10%] text-center w-full dark:border-none"
+			class="border rounded-md border-gray-500 h-[10%] text-center w-full dark:border-none dark:bg-[#3b3b3b] dark:text-gray-100"
 		/>
 		<button @click="predict()" class="bg-blue-600 h-[5%] mt-5 text-white w-full">Submit</button>
 		<ul v-if="answers.length > 0" class="list-disc mt-5 p-5 dark:text-white">
