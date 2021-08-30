@@ -35,7 +35,7 @@
 		"typescript": "^4.2.4",
 		"vite": "^2.2.1",
 		"vite-plugin-html": "^2.0.7",
-		"vite-plugin-pages": "^0.9.6",
+		"vite-plugin-pages": "^0.18.0",
 		"vite-plugin-windicss": "^0.15.7",
 		"workbox-background-sync": "^6.1.5",
 		"workbox-expiration": "^6.1.5",
