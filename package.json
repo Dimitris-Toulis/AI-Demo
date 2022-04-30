@@ -14,16 +14,16 @@
 		"@tensorflow-models/handpose": "^0.0.7",
 		"@tensorflow-models/mobilenet": "^2.1.0",
 		"@tensorflow-models/posenet": "^2.2.2",
-		"@tensorflow-models/qna": "^1.0.0",
+		"@tensorflow-models/qna": "^1.0.1",
 		"@tensorflow-models/speech-commands": "^0.5.4",
 		"@tensorflow/tfjs-backend-wasm": "^3.5.0",
 		"@tensorflow/tfjs-converter": "^3.5.0",
 		"@tensorflow/tfjs-core": "^3.5.0",
 		"@tensorflow/tfjs-data": "^3.5.0",
-		"@tensorflow/tfjs-layers": "^3.5.0",
+		"@tensorflow/tfjs-layers": "^3.16.0",
 		"vue": "^3.0.5",
 		"vue-router": "^4.0.6",
-		"workbox-window": "^6.1.5"
+		"workbox-window": "^6.5.3"
 	},
 	"devDependencies": {
 		"@tailwindcss/typography": "^0.4.0",
